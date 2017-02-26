@@ -15,7 +15,6 @@ import org.springframework.context.annotation.EnableAspectJAutoProxy;
 public class TestLogConfig {
     @Bean
     public TestLogAspect dataSourceSelectAspect() {
-        TestLogAspect aspect = Aspects.aspectOf(TestLogAspect.class);
-        return aspect;
+        return new TestLogAspect();
     }
 }
