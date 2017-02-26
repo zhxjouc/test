@@ -22,14 +22,17 @@ public class TestLogAspect {
     private ApplicationContext applicationContext;
 
 
-    @Around("execution(@net.vickymedia.ops.record.TestLog * *(..)) && @annotation(enableOperationRecord)")
-    public Object recordOperation(ProceedingJoinPoint proceedingJoinPoint, TestLog enableOperationRecord) throws Throwable {
-        logger.debug("start to test");
+    @Around("execution(@com.test.aop.TestLog * *(..)) && @annotation(testLog)")
+    public Object recordOperation(ProceedingJoinPoint proceedingJoinPoint, TestLog testLog) throws Throwable {
 
+        TestLogDB testLogDB = new TestLogDB();
+        testLogDB.setId(1L);
+        testLogDB.setName("abc");
+        logger.info("start to test " + testLogDB.getName());
         try {
             return proceedingJoinPoint.proceed(proceedingJoinPoint.getArgs());
         } finally {
-            logger.info("AOP test finish");
+            logger.info("AOP test finish " + testLogDB);
         }
     }
 }
